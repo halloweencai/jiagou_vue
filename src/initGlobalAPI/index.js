@@ -12,14 +12,14 @@ export function initGlobalAPI(Vue) {
     Vue.mixin({
         a: 1,
         beforeCreate() {
-            console.log('mix 1')
+            // console.log('mix 1')
         }
     })
     Vue.mixin({
         b: 2,
         beforeCreate() {
-            console.log('mix 2')
+            // console.log('mix 2')
         }
     })
-    console.log(Vue.options)
+    // console.log(Vue.options)
 }

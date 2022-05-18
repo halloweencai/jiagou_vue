@@ -6,7 +6,6 @@ import {lifecycleMixin} from './lifecycle'
 import {initGlobalAPI} from './initGlobalAPI/index'
 function Vue(options) {
     // 运行Vue的初始化操作
-    debugger
     this._init(options)
 }
 // 通过引入文件的方式  给Vue原型上添加方法

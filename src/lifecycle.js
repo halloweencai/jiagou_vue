@@ -5,7 +5,7 @@ export function lifecycleMixin(Vue) {
         const vm = this
         // 我要通过虚拟节点，渲染出真实的dom
         vm.$el = patch(vm.$el, vnode)
-        console.log(vnode)
+        // console.log(vnode)
     }
 }
 
@@ -21,7 +21,6 @@ export function mountComponent(vm,el) {
     let updateComponent = () => { // 无论是渲染还是更新都调用此方法
         vm._update(vm._render())  
     }
-    debugger
     // 渲染watcher，每个组件都有一个watcher
     new Watcher(vm, updateComponent,()=>{},true)  // true代表它是一个渲染watcher
     callHook(vm, 'mounted')

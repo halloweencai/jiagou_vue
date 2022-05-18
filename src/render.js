@@ -20,7 +20,7 @@ export function renderMixin(Vue) {
     Vue.prototype._render = function (params) {
         const vm = this
         const {render} = vm.$options
-        console.log(render)
+        // console.log(render)
         let vnode = render.call(vm)   // 去实例上 取值
         return vnode
     }

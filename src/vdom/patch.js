@@ -13,7 +13,7 @@ export function patch(oldNode, vnode) {
         // 需要将渲染好的结果返回
         return el
     }
-    console.log(oldNode, vnode)
+    // console.log(oldNode, vnode)
 
     // 递归创建真实节点，替换掉老的节点
 }

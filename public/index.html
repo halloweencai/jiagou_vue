@@ -7,13 +7,14 @@
     <title>Document</title>
 </head>
 <body>
-    <div id="app" style="color: red;background: blue;"><p>hello {{ name }}</p></div>
+    <!-- watcher和dep的关系 一个watcher对应n个dep，一个dep对应多个watcher-->
+    <div id="app" style="color: red;background: blue;"><p>hello {{ arr }}</p></div>
     <script src="/dist/umd/vue.js"></script>
     <script>
         let vm = new Vue({
             el: '#app',
             data() {
-                return {name: 'cjp', age: 18}
+                return {arr: [[1,2,3]]}
             },
             // beforeCreate() {
             //     console.log('user', this.name)
@@ -31,8 +32,11 @@
             // watch() {}
         })
         setTimeout(() => {
-            vm.age = 1000
-        })
+            vm.arr[0].push(4,5,6)
+            // vm.age = 1000  // 依赖收集
+            // vm._update(vm._render())
+            // 希望数据变化可以自动的重新执行
+        }, 1000)
         // with(vm._data) {
         //     console.log(name)
         // }
