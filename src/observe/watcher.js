@@ -1,4 +1,5 @@
 import {pushTarget, popTarget} from './dep.js'
+import {queueWatcher} from './schedular'
 let id = 0
 class Watcher {
     constructor(vm,exprOrFn,callback,options) {
@@ -25,8 +26,15 @@ class Watcher {
         popTarget()  // 移除watcher
     }
     update() {
+        queueWatcher(this)
+        // console.log(this.id)
+        // 等待着一起来更新，因为每次调用update的时候，都放入了watcher
+        // this.get()
+    }
+    run() {
         this.get()
     }
 }
-
+// 在模版中取值时，会惊喜依赖收集，在更改数据是会进行对应的watcher调用更新操作
+// dep 和 watcher 是一个多对多的关系，dep里存放着相关的watcher，是一个观察者模式
 export default Watcher

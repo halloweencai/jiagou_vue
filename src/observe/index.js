@@ -16,7 +16,7 @@ class Observer {
             value.__proto__ = arrayMethods
             
             // 如果数组里放的是对象再监控
-            this.observerArray(value)
+            this.observerArray(value)  // 这里虽然递归了，但是没有依赖收集
         } else {
             this.walk(value)  // 对对象进行观测
         }

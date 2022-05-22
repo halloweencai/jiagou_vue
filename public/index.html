@@ -8,7 +8,8 @@
 </head>
 <body>
     <!-- watcher和dep的关系 一个watcher对应n个dep，一个dep对应多个watcher-->
-    <div id="app" style="color: red;background: blue;"><p>hello {{ arr }}</p></div>
+    <div id="app" style="color: red;background: blue;">{{ arr }}</div>
+    <!-- Object.freeze冻结，内部就不能增加get和set -->
     <script src="/dist/umd/vue.js"></script>
     <script>
         let vm = new Vue({
@@ -31,12 +32,21 @@
             // computed() {},
             // watch() {}
         })
-        setTimeout(() => {
-            vm.arr[0].push(4,5,6)
-            // vm.age = 1000  // 依赖收集
-            // vm._update(vm._render())
-            // 希望数据变化可以自动的重新执行
-        }, 1000)
+        vm.arr.push(1)
+        vm.arr.push(2)
+        vm.arr.push(3)
+        vm.arr.push(4)
+
+        vm.$nextTick(() => {
+            console.log(vm.$el.innerHTML)
+        })
+        
+        // setTimeout(() => {
+        //     vm.arr[0].push(4,5,6)
+        //     // vm.age = 1000  // 依赖收集
+        //     // vm._update(vm._render())
+        //     // 希望数据变化可以自动的重新执行
+        // }, 1000)
         // with(vm._data) {
         //     console.log(name)
         // }
