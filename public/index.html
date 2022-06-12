@@ -7,53 +7,28 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- watcher和dep的关系 一个watcher对应n个dep，一个dep对应多个watcher-->
-    <div id="app" style="color: red;background: blue;">{{ arr }}</div>
-    <!-- Object.freeze冻结，内部就不能增加get和set -->
+    <div id="app">
+        <my-component></my-component>
+    </div>
     <script src="/dist/umd/vue.js"></script>
     <script>
+        // 内部会调用 Vue.extend 返回一个组件的构造函数，通过new 这个构造函数产生实例
+        Vue.component('my-component', {
+            template: '<div>hello 你好</div>'
+        })
+        // 更改组件的合并策略
         let vm = new Vue({
             el: '#app',
             data() {
-                return {arr: [[1,2,3]]}
+                return {name: 'cjp'}
             },
-            // beforeCreate() {
-            //     console.log('user', this.name)
-            // },
-            // created() {
-            //     console.log('created', this.name, this.$el)
-            // },
-            // beforeMount() {
-            //     console.log('beforeMount', this.$el)
-            // },
-            // mounted() {
-            //     console.log('mounted', this.$el)
-            // },
-            // computed() {},
-            // watch() {}
+            components: {
+                'my-component': {
+                    template: '<div>hello 你好1111</div>'
+                }
+            }
         })
-        vm.arr.push(1)
-        vm.arr.push(2)
-        vm.arr.push(3)
-        vm.arr.push(4)
-
-        vm.$nextTick(() => {
-            console.log(vm.$el.innerHTML)
-        })
-        
-        // setTimeout(() => {
-        //     vm.arr[0].push(4,5,6)
-        //     // vm.age = 1000  // 依赖收集
-        //     // vm._update(vm._render())
-        //     // 希望数据变化可以自动的重新执行
-        // }, 1000)
-        // with(vm._data) {
-        //     console.log(name)
-        // }
-        
-        // vm._data.name = '1111'
-        // vm._data.name.unshift({ c: 9999})
-        // console.log(vm.name)
+        console.log(vm)
     </script>
 </body>
 </html>

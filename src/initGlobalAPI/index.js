@@ -1,25 +1,20 @@
-import {mergeOptions} from '../util/index'
+import initMixin from './mixin'
+import { ASSETS_TYPE } from './const'
+import initAssetRegisters from './assets'
+import initExtend from './extend'
 export function initGlobalAPI(Vue) {
     // 整合了所有的全局相关的内容
     Vue.options = {}
 
-    Vue.mixin = function (mixin) {
-        // this为Vue，如何实现两个对象的合并
-        this.options = mergeOptions(this.options,mixin)
-    }
+    initMixin(Vue)
 
-    // 生命周期的合并策略  [beforeCreate,beforeCreate]
-    Vue.mixin({
-        a: 1,
-        beforeCreate() {
-            // console.log('mix 1')
-        }
+    // 初始化的全局过滤器、指令、组件
+
+    ASSETS_TYPE.forEach(type => {
+        Vue.options[type+'s'] = {}
     })
-    Vue.mixin({
-        b: 2,
-        beforeCreate() {
-            // console.log('mix 2')
-        }
-    })
-    // console.log(Vue.options)
+    Vue.options._base = Vue   // _base 是Vue的构造函数
+
+    initExtend(Vue)
+    initAssetRegisters(Vue)
 }
