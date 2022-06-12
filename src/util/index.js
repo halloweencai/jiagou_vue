@@ -55,6 +55,19 @@ LIFECYCLE_HOOKS.forEach(hook => {
     strats[hook] = mergeHook
 })
 
+function mergeAssets(parentVal, childVal) {
+    const res = Object.create(parentVal)  // res.__proto__ = parentVal
+    
+    if(childVal) {
+        for(let key in childVal) {
+            res[key] = childVal[key]
+        }
+    }
+    return res
+}
+
+strats.components = mergeAssets
+
 export function mergeOptions(parent, child) {
     const options = {}
 
